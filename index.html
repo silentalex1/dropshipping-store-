@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>realalex store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#fafafa] text-black">
+
+    <nav class="fixed top-0 w-full bg-white/70 backdrop-blur-xl z-50 border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="text-2xl font-black tracking-tighter italic">realalex <span class="text-green-500">store</span></div>
+            <div id="navAuth">
+                <button onclick="showAuth()" class="bg-black text-white px-8 py-3 rounded-2xl font-bold hover:scale-105 transition-transform active:scale-95 text-sm">
+                    Create account
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 pt-32 pb-20">
+        <div class="flex flex-col gap-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
+                <div class="lg:col-span-8 space-y-3">
+                    <p class="text-xs font-bold uppercase tracking-widest text-gray-400 ml-1">Find</p>
+                    <div class="relative">
+                        <input type="text" id="searchBar" placeholder="Search for a product use 'k' to open search." 
+                            class="w-full bg-white border-2 border-gray-100 h-16 px-6 rounded-3xl outline-none focus:border-green-500 transition-all text-lg shadow-sm">
+                        <div class="absolute right-5 top-1/2 -translate-y-1/2 bg-gray-50 border border-gray-200 px-3 py-1 rounded-xl text-[10px] font-black text-gray-400">K</div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-4 space-y-3">
+                    <p class="text-xs font-bold uppercase tracking-widest text-gray-400 ml-1">Price</p>
+                    <div class="bg-white border-2 border-gray-100 h-32 p-6 rounded-3xl shadow-sm flex flex-col justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xl font-bold text-gray-300">$</span>
+                            <input type="number" id="priceText" min="15" max="115" value="115" class="w-full text-2xl font-black outline-none">
+                        </div>
+                        <input type="range" id="priceRange" min="15" max="115" value="115" class="w-full accent-green-500">
+                    </div>
+                </div>
+            </div>
+
+            <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+        </div>
+    </main>
+
+    <div id="authBox" class="fixed inset-0 bg-black/40 backdrop-blur-md z-[60] hidden flex items-center justify-center p-6">
+        <div class="bg-white w-full max-w-md rounded-[40px] p-10 shadow-2xl scale-95 transition-transform">
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-xl font-bold">Create your <span class="bg-green-100 text-green-600 px-3 py-1 rounded-lg border-2 border-green-500 ml-1">account</span></h2>
+                <button onclick="hideAuth()" class="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors">✕</button>
+            </div>
+            
+            <div class="space-y-4">
+                <input type="text" id="userIn" placeholder="Enter your username." class="w-full bg-gray-50 h-16 px-6 rounded-2xl outline-none border-2 border-transparent focus:border-green-500 transition-all font-medium">
+                <input type="password" id="passIn" placeholder="Enter your password." class="w-full bg-gray-50 h-16 px-6 rounded-2xl outline-none border-2 border-transparent focus:border-green-500 transition-all font-medium">
+                <button onclick="handleAuth()" id="authBtn" class="w-full bg-black text-white h-16 rounded-2xl font-black text-lg hover:bg-green-500 transition-colors shadow-lg shadow-black/10">Create account.</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

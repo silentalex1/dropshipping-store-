@@ -13,26 +13,34 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
 
 .price-range::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     background: #2563eb;
     border-radius: 50%;
     border: 5px solid white;
     cursor: pointer;
-    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2);
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
 }
 
-.card-item {
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.product-item {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.card-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+.product-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.05);
 }
 
-.show-flex { display: flex !important; animation: fadeIn 0.3s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.flex-center { display: flex !important; }
+
+.scale-up {
+    animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }

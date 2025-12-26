@@ -8,15 +8,15 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-[#fafafa] text-slate-900 overflow-x-hidden">
+<body class="bg-[#fcfcfc] text-slate-900">
 
-    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-2xl z-50 border-b border-gray-100 h-20">
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-xl z-50 border-b border-gray-100 h-20">
         <div class="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
-            <div class="text-xl font-black tracking-tighter italic">
-                realalex <span class="text-blue-600">reselling</span> <span class="text-green-500">store</span>
+            <div class="text-xl font-black tracking-tight">
+                realalex <span class="text-blue-600 font-extrabold">reselling</span> <span class="text-green-500 font-extrabold">store</span>
             </div>
-            <div id="auth-zone">
-                <button onclick="openAuth()" class="bg-black text-white px-8 py-3 rounded-2xl font-bold text-sm hover:scale-105 active:scale-95 transition-all">
+            <div id="auth-ui">
+                <button onclick="openRegister()" class="bg-black text-white px-7 py-2.5 rounded-2xl font-bold text-sm hover:bg-blue-600 transition-all active:scale-95">
                     Create account
                 </button>
             </div>
@@ -24,78 +24,67 @@
     </nav>
 
     <main class="max-w-4xl mx-auto px-6 pt-32 pb-24">
-        <div class="flex flex-col gap-10">
+        <div class="space-y-10">
             
-            <div class="bg-white p-10 rounded-[45px] border border-gray-100 shadow-sm space-y-6">
-                <p class="text-[10px] font-black uppercase tracking-[0.25em] text-gray-400">Your price range</p>
+            <section class="bg-white p-10 rounded-[40px] border border-gray-100 shadow-sm space-y-6">
+                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Budget</p>
                 <div class="flex flex-col md:flex-row items-center gap-8">
-                    <div class="flex items-center gap-3 bg-gray-50 px-6 py-4 rounded-3xl border border-gray-100 min-w-[160px]">
-                        <span class="text-2xl font-bold text-gray-300">$</span>
-                        <input type="number" id="price-box" min="15" max="115" value="115" class="w-full bg-transparent text-3xl font-black outline-none">
+                    <div class="flex items-center gap-2 bg-gray-50 px-6 py-4 rounded-2xl border border-gray-100">
+                        <span class="text-xl font-bold text-gray-300">$</span>
+                        <input type="number" id="price-box" min="15" max="115" value="115" class="w-20 bg-transparent text-2xl font-black outline-none">
                     </div>
-                    <input type="range" id="price-slider" min="15" max="115" value="115" class="price-slider">
+                    <input type="range" id="price-slider" min="15" max="115" value="115" class="price-range">
                 </div>
-            </div>
+            </section>
 
-            <div class="bg-white p-10 rounded-[45px] border border-gray-100 shadow-sm space-y-4">
-                <p class="text-[10px] font-black uppercase tracking-[0.25em] text-gray-400">Product Search</p>
-                <div class="relative group">
-                    <input type="text" id="main-search" placeholder="Press ctrl+c to open search." 
-                        class="w-full h-20 bg-gray-50 border-2 border-transparent rounded-[30px] px-8 text-xl font-bold outline-none transition-all focus:bg-white focus:border-blue-500 focus:ring-8 focus:ring-blue-50">
-                    <div class="absolute right-8 top-1/2 -translate-y-1/2 flex gap-2">
-                        <kbd class="bg-white border border-gray-200 px-2 py-1 rounded-lg text-[10px] font-bold text-gray-400">CTRL</kbd>
-                        <kbd class="bg-white border border-gray-200 px-2 py-1 rounded-lg text-[10px] font-bold text-gray-400">C</kbd>
-                    </div>
+            <section class="bg-white p-10 rounded-[40px] border border-gray-100 shadow-sm space-y-4">
+                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Search</p>
+                <div class="relative">
+                    <input type="text" id="search-input" placeholder="Press ctrl+c to open search." 
+                        class="w-full h-16 bg-gray-50 border-2 border-transparent rounded-2xl px-6 font-bold text-lg outline-none focus:bg-white focus:border-blue-500 transition-all">
                 </div>
-            </div>
+            </section>
 
-            <div id="item-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pt-6"></div>
+            <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </div>
     </main>
 
-    <footer class="pb-20 flex justify-center">
-        <p class="text-gray-400 text-xs font-bold tracking-tight italic">PS 'realalex' is just a buisness name that i'll be using.</p>
+    <footer class="text-center pb-20">
+        <p class="text-gray-300 text-xs font-bold italic">PS 'realalex' is just a buisness name that i'll be using.</p>
     </footer>
 
-    <div id="auth-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xl z-[100] hidden items-center justify-center p-6 opacity-0 transition-opacity duration-300">
-        <div class="bg-white w-full max-w-sm rounded-[50px] p-12 shadow-2xl relative transform scale-90 transition-transform duration-300">
-            <div class="flex justify-between items-start mb-12">
-                <h2 class="text-2xl font-black leading-tight">Create your <br><span class="inline-block mt-2 bg-green-500 text-white px-4 py-1 rounded-2xl">account</span></h2>
-                <button onclick="closeAuth()" class="text-gray-300 hover:text-red-500 transition-colors">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
-                </button>
+    <div id="modal-reg" class="fixed inset-0 bg-black/50 backdrop-blur-lg z-[100] hidden items-center justify-center p-6">
+        <div class="bg-white w-full max-w-sm rounded-[45px] p-10 shadow-2xl relative">
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-lg font-bold">Create your <span class="bg-green-100 border-2 border-green-500 text-green-700 px-3 py-1 rounded-xl ml-1">account</span></h2>
+                <button onclick="closeRegister()" class="text-gray-300 hover:text-black">✕</button>
             </div>
-            <div class="space-y-5">
-                <input type="text" id="reg-user" placeholder="Enter your username." class="w-full bg-gray-50 h-16 px-8 rounded-3xl outline-none border-2 border-transparent focus:border-blue-500 font-bold transition-all">
-                <input type="password" id="reg-pass" placeholder="Enter your password." class="w-full bg-gray-50 h-16 px-8 rounded-3xl outline-none border-2 border-transparent focus:border-blue-500 font-bold transition-all">
-                <button onclick="handleRegister()" id="reg-btn" class="w-full bg-black text-white h-20 rounded-[30px] font-black text-lg hover:bg-blue-600 shadow-xl shadow-blue-200 transition-all active:scale-95">Create account.</button>
+            <div class="space-y-4">
+                <input type="text" id="reg-user" placeholder="Enter your username." class="w-full bg-gray-50 h-16 px-6 rounded-2xl outline-none font-bold focus:ring-2 ring-blue-500 transition-all">
+                <input type="password" id="reg-pass" placeholder="Enter your password." class="w-full bg-gray-50 h-16 px-6 rounded-2xl outline-none font-bold focus:ring-2 ring-blue-500 transition-all">
+                <button onclick="doRegister()" id="reg-btn" class="w-full bg-black text-white h-16 rounded-2xl font-black text-lg hover:bg-blue-600 transition-all">Create account.</button>
             </div>
         </div>
     </div>
 
-    <div id="pay-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xl z-[100] hidden items-center justify-center p-6 opacity-0 transition-opacity duration-300">
-        <div class="bg-white w-full max-w-md rounded-[50px] p-12 shadow-2xl relative transform scale-90 transition-transform duration-300">
+    <div id="modal-pay" class="fixed inset-0 bg-black/50 backdrop-blur-lg z-[100] hidden items-center justify-center p-6">
+        <div class="bg-white w-full max-w-md rounded-[45px] p-12 shadow-2xl relative">
+            <button onclick="closePay()" class="absolute top-8 right-8 text-gray-300">✕</button>
             <div class="mb-10">
-                <h2 class="text-3xl font-black mb-2">Checkout</h2>
-                <p class="text-blue-600 font-black text-sm uppercase tracking-widest">Airpods — $15.00</p>
+                <h2 class="text-2xl font-black">Checkout</h2>
+                <p class="text-blue-600 font-bold text-sm tracking-widest uppercase">Airpods Pro — $15.00</p>
             </div>
-            <div class="space-y-6">
-                <div class="space-y-2">
-                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-2">Debit Card Number</label>
-                    <input type="text" placeholder="0000 0000 0000 0000" class="w-full bg-gray-50 h-16 px-8 rounded-3xl outline-none border-2 border-transparent focus:border-blue-500 font-black">
+            <div class="space-y-5">
+                <div class="space-y-1">
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-2">Card Number</p>
+                    <input type="text" placeholder="0000 0000 0000 0000" class="w-full bg-gray-50 h-16 px-6 rounded-2xl outline-none font-black text-lg focus:bg-white border-2 border-transparent focus:border-blue-500 transition-all">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-2">Expiry</label>
-                        <input type="text" placeholder="MM/YY" class="w-full bg-gray-50 h-16 px-8 rounded-3xl outline-none border-2 border-transparent focus:border-blue-500 font-black">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-2">CVC</label>
-                        <input type="text" placeholder="000" class="w-full bg-gray-50 h-16 px-8 rounded-3xl outline-none border-2 border-transparent focus:border-blue-500 font-black">
-                    </div>
+                    <input type="text" placeholder="MM/YY" class="w-full bg-gray-50 h-16 px-6 rounded-2xl outline-none font-black focus:bg-white border-2 border-transparent focus:border-blue-500 transition-all">
+                    <input type="text" placeholder="CVC" class="w-full bg-gray-50 h-16 px-6 rounded-2xl outline-none font-black focus:bg-white border-2 border-transparent focus:border-blue-500 transition-all">
                 </div>
-                <button onclick="alert('Connecting to payment processor...')" class="w-full bg-blue-600 text-white h-20 rounded-[30px] font-black text-xl hover:bg-green-500 transition-all shadow-2xl shadow-blue-100 mt-4">Complete Payment</button>
-                <button onclick="closePay()" class="w-full text-gray-400 font-bold text-sm hover:text-black">Cancel</button>
+                <button onclick="alert('Success! Your Airpods are on the way.')" class="w-full bg-blue-600 text-white h-20 rounded-[30px] font-black text-xl hover:bg-green-500 shadow-xl shadow-blue-200 transition-all mt-4">Pay $15.00</button>
+                <p class="text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">Secure Debit Card Payment</p>
             </div>
         </div>
     </div>

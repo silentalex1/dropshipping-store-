@@ -1,57 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-
-body { 
-    font-family: 'Plus Jakarta Sans', sans-serif; 
-    overflow-x: hidden;
-}
-
-input[type='range'] {
-    -webkit-appearance: none;
-    height: 8px;
-    background: #f1f5f9;
-    border-radius: 10px;
-}
-
-input[type='range']::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 28px;
-    height: 28px;
-    background: #2563eb;
-    border-radius: 50%;
-    border: 6px solid white;
-    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-input[type='range']::-webkit-slider-thumb:hover {
-    transform: scale(1.15);
-}
-
-.product-card {
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.product-card:hover {
-    transform: translateY(-12px) scale(1.02);
-}
-
-#authBox {
-    transition: opacity 0.4s ease;
-}
-
-#authBox:not(.hidden) {
-    display: flex;
-    animation: authReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes authReveal {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>realalex reselling store</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#fcfcfc]">
+    <div id="root"></div>
+    <script type="text/babel" src="script.js"></script>
+</body>
+</html>
